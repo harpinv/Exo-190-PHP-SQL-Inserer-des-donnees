@@ -8,7 +8,7 @@
 $server = 'localhost';
 $user = 'root';
 $password = '';
-$db = 'bdd_cours';
+$db = 'table_test_phpmyadmin';
 
 try {
     /**
@@ -26,7 +26,7 @@ try {
     $date = $dt->format('Y-m-d H:i:s');
 
     $table_test_php = "
-         INSERT INTO utilisateur (nom, prenom, email, password, adresse, code_postal, pays, date_enregistrement)
+         INSERT INTO utilisateur (nom, prenom, email, password, adresse, code_postal, pays, date_join)
          VALUES ('Pit', 'Brout', 'p.brout@gmail.com', '4567', '2 Rue Nounou', 59440, 'France', '$date')
     ";
 
@@ -54,9 +54,9 @@ try {
     // TODO Votre code ici.
 
     $table_test_php = "
-         INSERT INTO utilisateur (nom, prenom, email, password, adresse, code_postal, pays, date_enregistrement)
+         INSERT INTO utilisateur (nom, prenom, email, password, adresse, code_postal, pays, date_join)
          VALUES ('Banne', 'Mac', 'b.mac@gmail.com', '3498', '3 Rue du bouchon', 59810, 'France', '$date'),
-         VALUES ('Martin', 'Vom', 'm.vom@gmail.com', '7102', '5 Rue melon', 59230, 'France', '$date')
+                ('Martin', 'Vom', 'm.vom@gmail.com', '7102', '5 Rue melon', 59230, 'France', '$date')
     ";
 
     $result = $maConnexion->exec($table_test_php);
@@ -71,7 +71,7 @@ try {
     $table_test_php = "
          INSERT INTO produit (titre, prix, description_courte, description_longue)
          VALUES ('miel', 3, 'miel des abeille', 'miel liquide fabriqué par des abeille pendant un été'),
-         VALUES ('chocolat', 1, 'tablette de chocolat', 'tablette de chocolat au lait de 200g')
+                ('chocolat', 1, 'tablette de chocolat', 'tablette de chocolat au lait de 200g')
     ";
 
     $result = $maConnexion->exec($table_test_php);
@@ -85,7 +85,7 @@ try {
 
     $maConnexion->beginTransaction();
 
-    $table_test_php = 'INSERT INTO utilisateur (nom, prenom, email, password, adresse, code_postal, pays, date_enregistrement) VALUES ';
+    $table_test_php = 'INSERT INTO utilisateur (nom, prenom, email, password, adresse, code_postal, pays, date_join) VALUES ';
 
     $uti1 = $table_test_php . "('Color', 'Will', 'c.will@gmail.com', '6082', '1 Rue point', 59764, 'France', '$date')";
     $maConnexion->exec($uti1);
@@ -106,7 +106,7 @@ try {
 
     $table_test_php = 'INSERT INTO produit (titre, prix, description_courte, description_longue) VALUES ';
 
-    $pro1 = $table_test_php . "('lait', 2, 'lait de vache', 'bouteille d'un litre demi écrémé')";
+    $pro1 = $table_test_php . "('lait', 2, 'lait de vache', 'bouteille de un litre demi écrémé')";
     $maConnexion->exec($pro1);
 
     $pro2 = $table_test_php . "('oeuf', 1, 'oeuf de poule', 'oeuf de poule élevé en plaine et au grain')";
@@ -116,10 +116,7 @@ try {
     $maConnexion->exec($pro3);
 
     $maConnexion->commit();
-
 }
 catch (PDOException $exception) {
     echo "Erreur de connexion: " . $exception->getMessage();
-
-    $maConnexion->rollBack();
 }
